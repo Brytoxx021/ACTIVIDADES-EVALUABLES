@@ -70,31 +70,41 @@ const getStarWarsPeople = async(name) => {
     .then((datosJson) => {
         //console.log(datosJson)
         const StarWarsCharacter = datosJson.results.find(item => item.name.includes(name))
-        console.log(StarWarsCharacter)
+        //console.log(StarWarsCharacter)
 
         const datosPersonaje = {
             name: StarWarsCharacter.name,
             url: StarWarsCharacter.url,
             homeworld: StarWarsCharacter.homeworld
         }
-        console.log(datosPersonaje)
+        //console.log(datosPersonaje)
 
-        const getStarWarsPlanet = async(StarWarsCharacterInfo) => {
+        const GetPlanetInfo = async(StarWarsCharacterInfo) => {
 
             await fetch(StarWarsCharacterInfo.homeworld)
             .then(function(datos){
-                console.log("Resolve")
+                console.log("Resolve,Planet")
                 return datos.json()
             })
             .then((datosJson) => {
-                console.log(datosJson)
+                //console.log(datosJson)
+                StarWarsCharacterInfo.nombrePlaneta = datosJson.name
+                StarWarsCharacterInfo.residentes = datosJson.residents
+                //console.log(StarWarsCharacterInfo)
+                for(elemento in StarWarsCharacterInfo.residentes){
+                    if(StarWarsCharacterInfo.residentes[elemento] != StarWarsCharacterInfo.homeworld){
+                        StarWarsCharacterInfo.paisanos = 1
+                        StarWarsCharacterInfo.paisanos ++
+                    }
+                }
             })
             .catch((error)=>{
                 console.log(error)
             })
         }
-
-        const planetaInfo = getStarWarsPlanet(StarWarsCharacter)
+        GetPlanetInfo(datosPersonaje)
+        
+        console.log(datosPersonaje)
     })
 
     .catch((error)=>{
