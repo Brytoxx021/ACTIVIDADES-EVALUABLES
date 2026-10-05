@@ -60,51 +60,27 @@ Crea una función ASINCRONA, llamada "getStarWarsPeople" que realice lo siguient
 
 const url = "https://swapi.dev/api/people/"
 
+const datosPersonaje = {}
+
+
 const getStarWarsPeople = async(name) => {
 
     await fetch(url)
     .then(function(datos){
-        console.log("Resolve")
+        //console.log("Resolve")
         return datos.json()
     })
     .then((datosJson) => {
         //console.log(datosJson)
         const StarWarsCharacter = datosJson.results.find(item => item.name.includes(name))
         //console.log(StarWarsCharacter)
-
         const datosPersonaje = {
             name: StarWarsCharacter.name,
             url: StarWarsCharacter.url,
             homeworld: StarWarsCharacter.homeworld
         }
         //console.log(datosPersonaje)
-
-        const GetPlanetInfo = async(StarWarsCharacterInfo) => {
-
-            await fetch(StarWarsCharacterInfo.homeworld)
-            .then(function(datos){
-                console.log("Resolve,Planet")
-                return datos.json()
-            })
-            .then((datosJson) => {
-                //console.log(datosJson)
-                StarWarsCharacterInfo.nombrePlaneta = datosJson.name
-                StarWarsCharacterInfo.residentes = datosJson.residents
-                //console.log(StarWarsCharacterInfo)
-                for(elemento in StarWarsCharacterInfo.residentes){
-                    if(StarWarsCharacterInfo.residentes[elemento] != StarWarsCharacterInfo.homeworld){
-                        StarWarsCharacterInfo.paisanos = 1
-                        StarWarsCharacterInfo.paisanos ++
-                    }
-                }
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-        }
         GetPlanetInfo(datosPersonaje)
-        
-        console.log(datosPersonaje)
     })
 
     .catch((error)=>{
@@ -112,48 +88,38 @@ const getStarWarsPeople = async(name) => {
     })
 }
 
-/*
-const url1 = "https://swapi.dev/api/people/?search="
 
-const getStarWarsPeople2 = async(name) => {
+const GetPlanetInfo = async(StarWarsCharacterInfo) => {
 
-    await fetch(url1 + name)
+    await fetch(StarWarsCharacterInfo.homeworld)
     .then(function(datos){
-        console.log("Resolve")
+        //console.log("Resolve/Planets")
         return datos.json()
     })
     .then((datosJson) => {
-        console.log(datosJson)
-        const StarWarsCharacter = {
-            nombre: datosJson.results
+        //console.log(datosJson)
+        StarWarsCharacterInfo.nombrePlaneta = datosJson.name
+        StarWarsCharacterInfo.residentes = datosJson.residents
+        StarWarsCharacterInfo.paisanos = 0
+        //console.log(StarWarsCharacterInfo.homeworld)
+        for(elemento in StarWarsCharacterInfo.residentes){
+            if(StarWarsCharacterInfo.residentes[elemento] != StarWarsCharacterInfo.url){
+                //console.log(StarWarsCharacterInfo.residentes[elemento])
+                //console.log(StarWarsCharacterInfo.url)
+                StarWarsCharacterInfo.paisanos = StarWarsCharacterInfo.paisanos + 1
+            }
         }
-        console.log(StarWarsCharacter)
+        if(StarWarsCharacterInfo.paisanos == 0){
+            console.log(`El personaje ${StarWarsCharacterInfo.name} vive en el planeta ${StarWarsCharacterInfo.nombrePlaneta} como Han... Solo...`)
+        }else{
+            console.log(`El personaje ${StarWarsCharacterInfo.name} en el planeta ${StarWarsCharacterInfo.nombrePlaneta} con ${StarWarsCharacterInfo.paisanos} paisanos`)
+        }
+        //console.log(StarWarsCharacterInfo)
     })
     .catch((error)=>{
         console.log(error)
     })
 }
-*/
-/*
-const url2 = "https://swapi.dev/api/planets/"
-
-const getStarWarsPlanets = async() => {
-
-    await fetch(url2)
-    .then(function(datos){
-        console.log("Resolve")
-        return datos.json()
-    })
-    .then((datosJson) => {
-        console.log(datosJson)
-    })
-    .catch((error)=>{
-        console.log(error)
-    })
-}
-
-getStarWarsPlanets()
-*/
 
 //LLAMADA - NO TOCAR!!!
 const buscandoGenteStarWars = () => {
