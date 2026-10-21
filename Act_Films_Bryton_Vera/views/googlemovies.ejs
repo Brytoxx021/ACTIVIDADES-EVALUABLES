@@ -5,9 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 		<base href="/">
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="/app.css">
 </head>
-<body>
-	<h1>Hola(google movies)</h1>
+	<body>
+	<form action="/search" method="GET">
+	<input type="text" name="q" placeholder="Busca una película" required>
+	<button type="submit">Buscar con Google Movies</button>
+</form>
 </body>
 </html>

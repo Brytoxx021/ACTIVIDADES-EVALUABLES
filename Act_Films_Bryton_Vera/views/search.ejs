@@ -5,9 +5,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 		<base href="/">
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="/app.css">
 </head>
 <body>
 	<h1>Hola(search)</h1>
+	<ul>
+		<li><%= pelicula.Title%></li>
+		<li><%= pelicula.Plot %></li>
+		<li><%= pelicula.Year %></li>
+		<% for(let i = 0; i < pelicula.Images.length; i++){%>
+			<img src="<%= pelicula.Images[i]%>" alt="">
+		<%} %>
+	</ul>
 </body>
 </html>
