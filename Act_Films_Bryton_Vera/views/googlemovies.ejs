@@ -1,16 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Google Movies</title>
 		<base href="/">
+	<!-- Hoja de estilos común a todas las vistas -->
 	<link rel="stylesheet" href="/app.css">
 </head>
-	<body>
-	<form action="/search" method="GET">
-	<input type="text" name="q" placeholder="Busca una película" required>
-	<button type="submit">Buscar con Google Movies</button>
-</form>
+	<body class="home">
+	<main class="home-main">
+		<!-- Logo de Google simulado con texto y una clase de color por letra -->
+		<h1 class="logo logo-grande">
+			<span class="g-azul">G</span><span class="g-rojo">o</span><span class="g-amarillo">o</span><span class="g-azul">g</span><span class="g-verde">l</span><span class="g-rojo">e</span>
+		</h1>
+
+		<!-- Formulario: envía por GET el campo "q" a la ruta /search (queryString) -->
+		<form action="/search" method="GET" class="buscador">
+			<div class="caja-busqueda">
+				<span class="icono-lupa">&#128269;</span>
+				<input type="text" name="q" placeholder="Busca una película" required autofocus>
+				<span class="icono-mic">&#127908;</span>
+			</div>
+			<button type="submit" class="boton-google">Buscar con Google</button>
+		</form>
+	</main>
 </body>
 </html>

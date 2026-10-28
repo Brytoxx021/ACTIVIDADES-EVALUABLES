@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Película no encontrada</title>
 		<base href="/">
 	<link rel="stylesheet" href="/app.css">
 </head>
-<body>
-	<h1>NO ENCONTRADO CRACK</h1>
+<body class="resultados">
+	<!-- Cabecera con logo y buscador, para poder volver a buscar -->
+	<header class="cabecera">
+		<a href="/" class="logo logo-pequeno">
+			<span class="g-azul">G</span><span class="g-rojo">o</span><span class="g-amarillo">o</span><span class="g-azul">g</span><span class="g-verde">l</span><span class="g-rojo">e</span>
+		</a>
+		<form action="/search" method="GET" class="caja-busqueda caja-cabecera">
+			<input type="text" name="q" placeholder="Busca una película" required>
+			<button type="submit" class="boton-lupa">&#128269;</button>
+		</form>
+	</header>
+
+	<main class="contenido">
+		<!-- "q" es el parámetro que envía el servidor con el nombre buscado -->
+		<h1 class="no-encontrada">PELÍCULA '<%= q.toUpperCase() %>' NO ENCONTRADA</h1>
+		<p>No se ha encontrado ningún resultado. <a href="/">Volver al inicio</a></p>
+	</main>
 </body>
 </html>

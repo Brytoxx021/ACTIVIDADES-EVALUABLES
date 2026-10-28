@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title><%= pelicula.Title %> - Buscar con Google</title>
 		<base href="/">
 	<link rel="stylesheet" href="/app.css">
 </head>
-<body>
-	<h1>Hola(search)</h1>
-	<ul>
-		<li><%= pelicula.Title%></li>
-		<li><%= pelicula.Plot %></li>
-		<li><%= pelicula.Year %></li>
-		<% for(let i = 0; i < pelicula.Images.length; i++){%>
-			<img src="<%= pelicula.Images[i]%>" alt="">
-		<%} %>
-	</ul>
+<body class="resultados">
+	<!-- Cabecera con logo y buscador (mantiene lo buscado en el input) -->
+	<header class="cabecera">
+		<a href="/" class="logo logo-pequeno">
+			<span class="g-azul">G</span><span class="g-rojo">o</span><span class="g-amarillo">o</span><span class="g-azul">g</span><span class="g-verde">l</span><span class="g-rojo">e</span>
+		</a>
+		<form action="/search" method="GET" class="caja-busqueda caja-cabecera">
+			<input type="text" name="q" value="<%= q %>" required>
+			<button type="submit" class="boton-lupa">&#128269;</button>
+		</form>
+	</header>
+
+	<main class="contenido">
+		<!-- Datos de la película recibidos desde index.js (objeto "pelicula") -->
+		<h1 class="titulo-resultado"><%= pelicula.Title%></h1>
+		<ul class="datos">
+			<li><span class="etiqueta">Año:</span> <%= pelicula.Year %></li>
+			<li><span class="etiqueta">Trama:</span> <%= pelicula.Plot %></li>
+		</ul>
+
+		<!-- Recorremos todas las imágenes y pintamos una etiqueta <img> por cada una -->
+		<div class="imagenes">
+			<% for(let i = 0; i < pelicula.Images.length; i++){%>
+				<img src="<%= pelicula.Images[i]%>" alt="Imagen <%= i + 1 %> de <%= pelicula.Title %>">
+			<%} %>
+		</div>
+	</main>
 </body>
 </html>
