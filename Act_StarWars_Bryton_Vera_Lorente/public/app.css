@@ -1,0 +1,145 @@
+/* ===== Estilos comunes a todas las vistas ===== */
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #202124;
+	background: #fff;
+}
+
+h1{
+	color: rgb(35, 48, 48);
+}
+
+a {
+	color: #1a0dab;
+}
+
+/* ===== Logo de Google (colores por letra) ===== */
+.logo {
+	font-weight: 700;
+	text-decoration: none;
+	letter-spacing: -2px;
+}
+.logo-grande  { font-size: 90px; margin: 0 0 30px; }
+.logo-pequeno { font-size: 32px; }
+.g-azul     { color: #4285f4; }
+.g-rojo     { color: #ea4335; }
+.g-amarillo { color: #fbbc05; }
+.g-verde    { color: #34a853; }
+
+/* ===== Caja de búsqueda ===== */
+.caja-busqueda {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	max-width: 584px;
+	height: 46px;
+	padding: 0 14px;
+	border: 1px solid #dfe1e5;
+	border-radius: 24px;
+	background: #fff;
+}
+.caja-busqueda:hover,
+.caja-busqueda:focus-within {
+	box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+	border-color: transparent;
+}
+.caja-busqueda input {
+	flex: 1;
+	border: none;
+	outline: none;
+	font-size: 16px;
+	padding: 0 10px;
+	background: transparent;
+}
+.icono-lupa, .icono-mic { color: #9aa0a6; }
+
+/* ===== Vista googlemovies (inicio) ===== */
+.home-main {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+.buscador {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 28px;
+}
+.boton-google {
+	background: #f8f9fa;
+	border: 1px solid #f8f9fa;
+	border-radius: 4px;
+	color: #3c4043;
+	font-size: 14px;
+	padding: 10px 16px;
+	cursor: pointer;
+}
+.boton-google:hover {
+	border-color: #dadce0;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Vistas search y notfound (resultados) ===== */
+.cabecera {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	padding: 18px 24px;
+	border-bottom: 1px solid #ebebeb;
+}
+.caja-cabecera { height: 44px; }
+.boton-lupa {
+	border: none;
+	background: none;
+	cursor: pointer;
+	font-size: 16px;
+}
+.contenido {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 24px;
+}
+.titulo-resultado {
+	color: #1a0dab;
+	font-size: 26px;
+	font-weight: normal;
+	margin-bottom: 8px;
+}
+.datos {
+	list-style: none;
+	padding: 0;
+	line-height: 1.6;
+}
+.etiqueta { font-weight: bold; }
+
+/* Galería de imágenes de la película */
+.imagenes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 16px;
+}
+img{
+	width: 200px;
+	height: auto;
+	border-radius: 8px;
+	border: 1px solid #dfe1e5;
+}
+
+/* Mensaje de película no encontrada (rojo sobre amarillo, como el ejemplo) */
+.no-encontrada {
+	display: inline-block;
+	color: #d93025;
+	background: #fff59d;
+	padding: 6px 10px;
+	font-size: 22px;
+}
