@@ -20,7 +20,7 @@ app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
 	res.redirect("/search.html");
-})
+});
 
 function modificarJson(json) {
 	for (let p of json) {
@@ -31,6 +31,30 @@ function modificarJson(json) {
 
 let jsonModificado = modificarJson(starwarsJson);
 console.log(jsonModificado);
+
+app.get("/starwars", (req, res) => {
+	// texto buscado (si no viene nada, cadena vacía) y sin espacios sobrantes
+	const q = String(req.query.q || "").trim();
+
+	// Busca sin distinguir mayúsculas/minúsculas
+	// (si q está vacío no buscamos, porque includes("") coincidiría con todas)
+	const personaje =
+		q === ""
+			? undefined
+			: Object.values(jsonModificado).find((photo) =>
+					name.photo.toLowerCase().includes(q.toLowerCase()),
+				);
+
+	// Si NO existe la película vista notfound con el nombre buscado como parámetro
+	if (!personaje) {
+		return res.status(404).render("notfound", { q });
+	}
+
+	res.render("starwars", { q, personaje });
+});
+
+
+
 
 //levantar el server
 app.listen(port, () => {
