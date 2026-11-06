@@ -5,9 +5,6 @@ const port = 3012;
 const path = require("path");
 const methodOverride = require("method-override"); // npm i method-override
 const starwarsJson = require("./starwars.json");
-//ns si va
-app.use(express.static("public"));
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -19,12 +16,12 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
-	res.redirect("/search.html");
+	res.redirect("search.html");
 });
 
 function modificarJson(json) {
 	for (let p of json) {
-		p.photo = "/images/" + p.name.split(" ")[0] + ".jpg";
+		p.photo = "../images/" + p.name.split(" ")[0] + ".jpg";
 	}
 	return json;
 }
@@ -33,28 +30,27 @@ let jsonModificado = modificarJson(starwarsJson);
 console.log(jsonModificado);
 
 app.get("/starwars", (req, res) => {
-	// texto buscado (si no viene nada, cadena vacía) y sin espacios sobrantes
-	const q = String(req.query.q || "").trim();
+    const { q } = req.query;
 
-	// Busca sin distinguir mayúsculas/minúsculas
-	// (si q está vacío no buscamos, porque includes("") coincidiría con todas)
-	const personaje =
-		q === ""
-			? undefined
-			: Object.values(jsonModificado).find((photo) =>
-					name.photo.toLowerCase().includes(q.toLowerCase()),
-				);
+    if (!q || q.trim() === "") {
+        // Si no hay búsqueda, puedes mandar todos o una lista vacía
+        return res.render("starwars.ejs", { personajes: jsonModificado });
+    }
 
-	// Si NO existe la película vista notfound con el nombre buscado como parámetro
-	if (!personaje) {
-		return res.status(404).render("notfound", { q });
-	}
+    const terminoBusqueda = q.toLowerCase().trim();
+    
+    // Usamos .filter() para obtener un array con todas las coincidencias
+    const personajes = jsonModificado.filter((p) => 
+        p.name.toLowerCase().includes(terminoBusqueda)
+    );
 
-	res.render("starwars", { q, personaje });
+    if (personajes.length === 0) {
+        return res.render("error.ejs", { msg: "Personaje no encontrado crack" });
+    }
+
+    // Pasamos el array a la vista (nota el cambio a 'personajes' en plural)
+    res.render("show.ejs", { q, personajes });
 });
-
-
-
 
 //levantar el server
 app.listen(port, () => {

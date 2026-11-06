@@ -4,8 +4,14 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home</title>
+	<link rel="stylesheet" href="/app.css">
 </head>
 <body>
-	<p><%= q %></p>
+	<div>
+		<% for(let e of personajes) { %>
+			<p><%= e.name %></p>
+			<img src="<%= e.photo %>" alt="<%= e.name %>">
+		<% } %>
+	</div>
 </body>
 </html>
